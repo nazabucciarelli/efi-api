@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { sequelize } = require('./src/models');
+const db = require('./src/models');
 const userRoutes = require('./src/routes/userRoutes');
 
 dotenv.config();
@@ -15,10 +15,14 @@ app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+db.sequelize.sync({ force: false }) // Cambia a 'true' si quieres sobrescribir las tablas
+  .then(() => {
+    console.log('Base de datos y tablas creadas');
+  })
+  .catch(error => {
+    console.error('Error al sincronizar la base de datos:', error);
   });
-}).catch((err) => {
-  console.error('Unable to connect to the database:', err);
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });

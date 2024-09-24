@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "gaming-library-db",
+    "password": "root",
+    "database": "games-library-db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
