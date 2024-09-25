@@ -16,10 +16,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: {
-      type: DataTypes.STRING,
-      defaultValue: 'user',
-    }
+    roleId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Roles',
+        key: 'id',
+      },
+      allowNull: false,
+    },
   }, {
     timestamps: true,
   });
