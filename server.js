@@ -15,8 +15,8 @@ app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-db.sequelize.sync({ force: false }) // Cambia a 'true' si quieres sobrescribir las tablas
-  .then(() => {
+db.sequelize.sync({ force: true })
+  .then(async () => {
     console.log('Base de datos y tablas creadas');
   })
   .catch(error => {

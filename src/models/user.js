@@ -1,32 +1,32 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
+  const User = sequelize.define(
+    "User",
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    roleId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Roles',
-        key: 'id',
-      },
-      allowNull: false,
-    },
-  }, {
-    timestamps: true,
-  });
+    {
+      timestamps: true,
+    }
+  );
+
+  User.associate = (models) => {
+    User.belongsTo(models.Role, { foreignKey: "roleId" });
+  };
 
   return User;
 };

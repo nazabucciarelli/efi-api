@@ -1,23 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('User', {
+  const Game = sequelize.define(
+    "Game",
+    {
       title: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      genderId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'Gender',
-            key: 'id',
-          },
-        allowNull: false,
-      },
-      platformId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'Platform',
-            key: 'id',
-          },
         allowNull: false,
       },
       price: {
@@ -28,11 +14,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         default: 1,
-      }
-    }, {
+      },
+    },
+    {
       timestamps: true,
-    });
-  
-    return User;
+      paranoid: true,
+      deletedAt: "deleted_at",
+    }
+  );
+
+  Game.associate = (models) => {
+    Game.belongsTo(models.Gender, { foreignKey: "genderId" });
+    Game.belongsTo(models.Platform, { foreignKey: "platformId" });
   };
-  
+
+  return Game;
+};
