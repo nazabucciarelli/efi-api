@@ -15,7 +15,7 @@ app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-db.sequelize.sync({ force: true })
+db.sequelize.sync({ force: false })
   .then(async () => {
     console.log('Base de datos y tablas creadas');
   })

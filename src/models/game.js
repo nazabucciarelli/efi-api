@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Game.associate = (models) => {
-    Game.belongsTo(models.Gender, { foreignKey: "genderId" });
+    Game.belongsTo(models.Genre, { foreignKey: "genreId" });
     Game.belongsTo(models.Platform, { foreignKey: "platformId" });
   };
 

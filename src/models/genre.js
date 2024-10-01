@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Gender = sequelize.define(
-    "Gender",
+  const Genre = sequelize.define(
+    "Genre",
     {
       name: {
         type: DataTypes.STRING,
@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Gender.associate = (models) => {
-    Gender.hasMany(models.Game, { foreignKey: "genderId" });
+  Genre.associate = (models) => {
+    Genre.hasMany(models.Game, { foreignKey: "genreId" });
   };
 
-  return Gender;
+  return Genre;
 };

@@ -1,11 +1,13 @@
 const express = require('express');
-const create = require('../controllers/user/create');
-const list = require('../controllers/user/list');
+const register = require('../controllers/user/register');
 const show = require('../controllers/user/show');
+const login = require('../controllers/user/login');
+const authenticateToken = require('../middlewares/authenticateToken');
+
 const router = express.Router();
 
-router.post('/users', create);
-router.get('/users', list);
-router.get('/users/:id', show);
+router.post('/users/register', register);
+router.get('/users/profile', authenticateToken, show);
+router.post('/users/login', login);
 
 module.exports = router;

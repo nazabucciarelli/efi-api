@@ -1,16 +1,15 @@
-const User = require('../../models/user');
+const { User } = require("../../models");
 
 async function show(req, res) {
   try {
-    const { id } = req.params;
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(req.user.dataValues.id);
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error obteniendo el usuario' });
+    return res.status(500).json({ error: 'Error fetching user' });
   }
 };
 
