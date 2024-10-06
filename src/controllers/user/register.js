@@ -8,7 +8,9 @@ async function register(req, res) {
     const userRole = await Role.findOne({ where: { name: "ROLE_USER" } });
     const userWithEmailAlreadyExist = await User.findOne({ where: { email } });
     if (userWithEmailAlreadyExist) {
-      return res.status(400).json({ error: "An user with that email already exists" });
+      return res
+        .status(400)
+        .json({ error: "An user with that email already exists" });
     }
     const user = await User.create({
       name,
@@ -19,7 +21,9 @@ async function register(req, res) {
     delete user.dataValues.password;
     res.status(201).json(user);
   } catch (error) {
-    res.status(400).json({ error: "Error registering an user" });
+    res
+      .status(400)
+      .json({ error: "Error registering user", message: error.message });
   }
 }
 

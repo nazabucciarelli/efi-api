@@ -21,19 +21,19 @@ async function login(req, res) {
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       const tokenPayload = {
-        currentUser: user
+        currentUser: user,
       };
 
-      return res
-        .status(200)
-        .json({
-          authorizationToken: jwt.sign(tokenPayload, process.env.JWT_SECRET),
-        });
+      return res.status(200).json({
+        authorizationToken: jwt.sign(tokenPayload, process.env.JWT_SECRET),
+      });
     } else {
       return res.status(400).json({ error: "Invalid password" });
     }
   } catch (error) {
-    res.status(400).json({ error: "Error fetching users" });
+    res
+      .status(400)
+      .json({ error: "Error signing in user", message: error.message });
   }
 }
 

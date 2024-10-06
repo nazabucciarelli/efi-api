@@ -22,7 +22,9 @@ async function create(req, res) {
       res.status(200).json(games);
     }
   } catch (error) {
-    res.status(400).json({ error: "Error listings games" });
+    res
+      .status(400)
+      .json({ error: "Error listing games", message: error.message });
   }
 }
 

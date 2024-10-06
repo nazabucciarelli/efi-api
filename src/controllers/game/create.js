@@ -1,9 +1,21 @@
-const { Game } = require("../../models");
+const { Game, Genre, Platform } = require("../../models");
 
 async function create(req, res) {
   try {
     if (req.currentUser.Role.name === "ROLE_ADMIN") {
       const { title, price, genreId, platformId } = req.body;
+      const genreExist = await Genre.findOne({ id: genreId });
+      if (!genreExist) {
+        return res
+          .status(404)
+          .json({ message: `Genre with ID ${genreId} doesn't exist` });
+      }
+      const platformExist = await Platform.findOne({ id: platformId });
+      if (!platformExist) {
+        return res
+          .status(404)
+          .json({ message: `Platform with ID ${platformId} doesn't exist` });
+      }
       const game = await Game.create({
         title,
         price,
@@ -15,7 +27,9 @@ async function create(req, res) {
       res.status(401).json({ message: "unauthorized" });
     }
   } catch (error) {
-    res.status(400).json({ error: "Error creating a game" });
+    res
+      .status(400)
+      .json({ error: "Error creating a game", message: error.message });
   }
 }
 

@@ -16,7 +16,9 @@ async function update(req, res) {
       res.status(401).json({ message: "Unauthorized" });
     }
   } catch (error) {
-    res.status(400).json({ error: "Error updating a game" });
+    res
+      .status(400)
+      .json({ error: "Error updating a game", message: error.message });
   }
 }
 

@@ -15,7 +15,9 @@ async function destroy(req, res) {
       res.status(401).json({ message: "Unauthorized" });
     }
   } catch (error) {
-    res.status(400).json({ error: "Error deleting a game" });
+    res
+      .status(400)
+      .json({ error: "Error deleting a game", message: error.message });
   }
 }
 
