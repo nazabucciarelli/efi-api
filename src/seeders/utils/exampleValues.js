@@ -8,10 +8,10 @@ function getRandom(list, property) {
 
 const roles = [
   {
-    name: 'user'
+    name: 'ROLE_USER'
   },
   {
-    name: 'admin'
+    name: 'ROLE_ADMIN'
   }
 ]
 const genres = [
