@@ -1,25 +1,15 @@
 'use strict';
+const timestamp = require('./utils/timestamp')
+const { roles } = require('./utils/exampleValues')
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const newEntries = [
-      {
-        name: 'admin',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        name: 'user',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-  ]
-  return queryInterface.bulkInsert('Roles', newEntries)
+    return queryInterface.bulkInsert('Roles', timestamp(roles))
   },
   async down (queryInterface, Sequelize) {
     return queryInterface.bulkDelete('Roles', { 
-      name: {[Sequelize.Op.in]: ['admin', 'user']}
+      name: {[Sequelize.Op.in]: roles.map(i => i.name)}
      })
   }
 };
