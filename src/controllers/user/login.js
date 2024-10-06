@@ -1,25 +1,39 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { User } = require("../../models");
+const { User, Role } = require("../../models");
 
 async function login(req, res) {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ where: { email: email } });
+    const user = await User.findOne({
+      where: { email: email },
+      include: [
+        {
+          model: Role,
+        },
+      ],
+    });
     if (!user) {
-      return res.status(404).json({ error: `User with email ${email} not found` });
+      return res
+        .status(404)
+        .json({ error: `User with email ${email} not found` });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
+      const tokenPayload = {
+        currentUser: user
+      };
+
       return res
         .status(200)
-        .json({authorizationToken :jwt.sign({ ...user }, process.env.JWT_SECRET)});
+        .json({
+          authorizationToken: jwt.sign(tokenPayload, process.env.JWT_SECRET),
+        });
     } else {
       return res.status(400).json({ error: "Invalid password" });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error fetching users" });
+    res.status(400).json({ error: "Error fetching users" });
   }
 }
 

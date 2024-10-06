@@ -14,13 +14,12 @@ async function register(req, res) {
       name,
       email,
       password: hashedPassword,
-      role: userRole,
+      roleId: userRole.dataValues.id,
     });
     delete user.dataValues.password;
     res.status(201).json(user);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error registering an user" });
+    res.status(400).json({ error: "Error registering an user" });
   }
 }
 
