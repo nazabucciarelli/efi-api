@@ -3,7 +3,9 @@ const { Purchase } = require("../../models");
 async function list(req, res) {
   try {
     const purchases = await Purchase.findAll({
-      userId: req.currentUser.id,
+      where: {
+        userId: req.currentUser.id,
+      },
     });
     res.status(200).json(purchases);
   } catch (error) {

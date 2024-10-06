@@ -4,14 +4,22 @@ async function create(req, res) {
   try {
     if (req.currentUser.Role.name === "ROLE_ADMIN") {
       const { title, price, genreId, platformId } = req.body;
-      const genreExist = await Genre.findOne({ id: genreId });
-      if (!genreExist) {
+      const genre = await Genre.findOne({
+        where: {
+          id: genreId,
+        },
+      });
+      if (!genre) {
         return res
           .status(404)
           .json({ message: `Genre with ID ${genreId} doesn't exist` });
       }
-      const platformExist = await Platform.findOne({ id: platformId });
-      if (!platformExist) {
+      const platform = await Platform.findOne({
+        where: {
+          id: platformId,
+        },
+      });
+      if (!platform) {
         return res
           .status(404)
           .json({ message: `Platform with ID ${platformId} doesn't exist` });

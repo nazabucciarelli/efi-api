@@ -3,8 +3,13 @@ const { Purchase, Game } = require("../../models");
 async function create(req, res) {
   try {
     const { gameId } = req.body;
-    const gameExist = await Game.findOne({ id: gameId });
-    if (!gameExist) {
+    const game = await Game.findOne({
+      where: {
+        id: gameId,
+        deleted_at: null,
+      },
+    });
+    if (!game) {
       return res
         .status(404)
         .json({ message: `Game with ID ${gameId} doesn't exist` });
@@ -19,6 +24,7 @@ async function create(req, res) {
     const purchase = await Purchase.create({
       gameId,
       userId: req.currentUser.id,
+      total: game.total,
     });
     res.status(201).json(purchase);
   } catch (error) {

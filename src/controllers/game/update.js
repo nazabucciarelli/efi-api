@@ -5,7 +5,12 @@ async function update(req, res) {
     if (req.currentUser.Role.name === "ROLE_ADMIN") {
       const { id } = req.params;
       const { title, price } = req.body;
-      let game = await Game.findOne({ id });
+      let game = await Game.findOne({
+        where: {
+          id,
+          deleted_at: null,
+        },
+      });
       if (game) {
         game = await game.update({ title, price });
         res.status(200).json(game);

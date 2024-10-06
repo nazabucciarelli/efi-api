@@ -3,8 +3,13 @@ const { Review, Game } = require("../../models");
 async function list(req, res) {
   try {
     const { gameId } = req.params;
-    const gameExist = await Game.findOne({ id: gameId });
-    if (!gameExist) {
+    const game = await Game.findOne({
+      where: {
+        id: gameId,
+        deleted_at: null,
+      },
+    });
+    if (!game) {
       return res
         .status(404)
         .json({ message: `Game with ID ${gameId} doesn't exist` });

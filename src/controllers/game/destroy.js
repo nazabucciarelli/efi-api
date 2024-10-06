@@ -4,7 +4,12 @@ async function destroy(req, res) {
   try {
     if (req.currentUser.Role.name === "ROLE_ADMIN") {
       const { id } = req.params;
-      let game = await Game.findOne({ id });
+      let game = await Game.findOne({
+        where: {
+          id,
+          deleted_at: null,
+        },
+      });
       if (game) {
         game = await game.update({ deleted_at: new Date() });
         res.status(204);
