@@ -6,6 +6,7 @@ async function show(req, res) {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+    delete user.dataValues.password;
     return res.status(200).json(user);
   } catch (error) {
     return res

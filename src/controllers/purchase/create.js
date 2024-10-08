@@ -26,6 +26,7 @@ async function create(req, res) {
       userId: req.currentUser.id,
       total: game.total,
     });
+    await game.update({ sales: game.sales + 1 });
     res.status(201).json(purchase);
   } catch (error) {
     res

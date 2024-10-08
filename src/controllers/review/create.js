@@ -14,9 +14,11 @@ async function create(req, res) {
         .status(404)
         .json({ message: `Game with ID ${gameId} doesn't exist` });
     }
-    const userHasAlreadyReviewed = Review.findOne({
-      userId: req.currentUser.id,
-      gameId,
+    const userHasAlreadyReviewed = await Review.findOne({
+      where: {
+        userId: req.currentUser.id,
+        gameId,
+      },
     });
     if (userHasAlreadyReviewed) {
       return res
@@ -24,10 +26,10 @@ async function create(req, res) {
         .json({ message: "User has already reviewed that game" });
     }
     const review = await Review.create({
-      gameId,
+      UserId: req.currentUser.id,
+      GameId: gameId,
       rating,
       comment,
-      userId: req.currentUser.id,
     });
     res.status(201).json(review);
   } catch (error) {

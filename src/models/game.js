@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true, 
       },
+      sales: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      }
     },
     {
       timestamps: true,
