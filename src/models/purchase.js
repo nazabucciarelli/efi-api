@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Purchase.associate = (models) => {
-    models.User.belongsToMany(models.Game, { through: models.Purchase });
-    models.Game.belongsToMany(models.User, { through: models.Purchase });
+    models.User.belongsToMany(models.Game, { through: models.Purchase, unique: false });
+    models.Game.belongsToMany(models.User, { through: models.Purchase, unique: false });
   };
 
   return Purchase;
