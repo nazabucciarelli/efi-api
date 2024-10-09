@@ -27,8 +27,8 @@ async function create(req, res) {
       const game = await Game.create({
         title,
         price,
-        genreId,
-        platformId,
+        GenreId: genreId,
+        PlatformId: platformId,
       });
       res.status(201).json(game);
     } else {

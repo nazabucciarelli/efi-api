@@ -22,9 +22,9 @@ async function create(req, res) {
       return res.status(400).json({ message: "User already has that game" });
     }
     const purchase = await Purchase.create({
-      gameId,
-      userId: req.currentUser.id,
-      total: game.total,
+      GameId: gameId,
+      UserId: req.currentUser.id,
+      total: game.dataValues.price,
     });
     await game.update({ sales: game.sales + 1 });
     res.status(201).json(purchase);
