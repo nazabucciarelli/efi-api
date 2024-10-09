@@ -15,8 +15,9 @@ async function list(req, res) {
         .json({ message: `Game with ID ${gameId} doesn't exist` });
     }
     const reviews = await Review.findAll({
-      deleted_at: null,
-      gameId,
+      where: {
+        gameId,
+      },
     });
     res.status(200).json(reviews);
   } catch (error) {
