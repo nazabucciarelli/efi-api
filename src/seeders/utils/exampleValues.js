@@ -43,19 +43,19 @@ const users = [
   {
     name: 'jonas12',
     email: 'jonasjonas@gmail.com',
-    role: 'user',
+    role: 'ROLE_USER',
     password: '123'
   },
   {
     name: 'MESSI',
     email: 'noesmessi@hotmail.com',
-    role: 'user',
+    role: 'ROLE_USER',
     password: 'mesi'
   },
   {
     name: 'Admin',
     email: 'admin@admin.com,',
-    role: 'admin',
+    role: 'ROLE_ADMIN',
     password: '123'
   }
 ]

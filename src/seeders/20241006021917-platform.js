@@ -1,11 +1,10 @@
 'use strict';
-const timestamp = require('./utils/timestamp')
 const { platforms } = require('./utils/exampleValues')
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('Platforms', timestamp(platforms))
+    return queryInterface.bulkInsert('Platforms', platforms)
   },
 
   async down (queryInterface, Sequelize) {

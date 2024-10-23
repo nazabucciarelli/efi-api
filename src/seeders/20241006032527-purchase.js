@@ -10,6 +10,7 @@ module.exports = {
       purchases.map(async (i) => {
         let user = await User.findOne({ where: { name: i.User } })
         let game = await Game.findOne({ where: { title: i.Game } })
+        await game.increment('sales')
         return {
           total: i.total,
           UserId: user.dataValues.id,
