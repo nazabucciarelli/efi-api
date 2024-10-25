@@ -1,9 +1,24 @@
-const { Game } = require("../../models");
+const { Game, Genre, Platform } = require("../../models");
 
-async function create(req, res) {
+async function list(req, res) {
   try {
     const { page } = req.query;
-    const params = { deleted_at: null };
+    const params = {
+      deleted_at: null,
+      include: [
+        {
+          model: Genre,
+          as: "genre",
+          attributes: ["id", "name"],
+        },
+        {
+          model: Platform,
+          as: "platform",
+          attributes: ["id", "name"],
+        }
+      ],
+    };
+    
     if (page) {
       const limit = 20;
       const offset = (page - 1) * limit;
@@ -28,4 +43,4 @@ async function create(req, res) {
   }
 }
 
-module.exports = create;
+module.exports = list;

@@ -15,8 +15,10 @@ async function create(req, res) {
         .json({ message: `Game with ID ${gameId} doesn't exist` });
     }
     let userAlreadyHasGame = await Purchase.findOne({
-      userId: req.currentUser.id,
-      gameId,
+      where: {
+        userId: req.currentUser.id,
+        gameId,
+      }
     });
     if (userAlreadyHasGame) {
       return res.status(400).json({ message: "User already has that game" });
