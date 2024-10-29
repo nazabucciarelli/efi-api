@@ -54,9 +54,9 @@ const users = [
   },
   {
     name: 'Admin',
-    email: 'admin@admin.com,',
+    email: 'admin@admin.com',
     role: 'ROLE_ADMIN',
-    password: '123'
+    password: 'admin'
   }
 ]
 const games = [
