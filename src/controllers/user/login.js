@@ -25,6 +25,7 @@ async function login(req, res) {
       };
 
       return res.status(200).json({
+        user_id: user.id,
         authorizationToken: jwt.sign(tokenPayload, process.env.JWT_SECRET),
       });
     } else {
