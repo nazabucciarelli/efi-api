@@ -1,4 +1,4 @@
-# efi-api
+# Efi-api
 This repository stores the source code of the API for the Final Evaluation in the Programming III subject at iTEC, with professor in charge Agustín Invaldi.
 
 You can clone the front-end client made in Next for the full experience.
@@ -15,7 +15,7 @@ npm install
 
 Once installed, start the database. It must be done inside src/:
 ```bash
-cd src && npx sequelize-cli db:start
+cd src && npx sequelize-cli db:create
 ```
 
 Then, you should go back to the root and run the proyect by using:
