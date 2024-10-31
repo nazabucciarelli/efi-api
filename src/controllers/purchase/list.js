@@ -1,4 +1,4 @@
-const { Purchase } = require("../../models");
+const { Purchase, Game, Genre, Platform } = require("../../models");
 
 async function list(req, res) {
   try {
@@ -6,6 +6,25 @@ async function list(req, res) {
       where: {
         userId: req.currentUser.id,
       },
+      include: [
+        {
+          model: Game,
+          as: "game",
+          attributes: ["id", "title", "price", "available", "sales"],
+          include: [
+            {
+              model: Genre,
+              as: "genre",
+              attributes: ["id", "name"],
+            },
+            {
+              model: Platform,
+              as: "platform",
+              attributes: ["id", "name"],
+            },
+          ],
+        },
+      ],
     });
     res.status(200).json(purchases);
   } catch (error) {
